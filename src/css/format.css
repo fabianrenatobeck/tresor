@@ -1,0 +1,242 @@
+/* src/styles/forms.css */
+
+/* Design Tokens */
+:root{
+    --bg: #0f1220;
+    --card: #171a2b;
+    --muted: #8b91a7;
+    --text: #e8ebf7;
+    --primary: #5b8cff;
+    --primary-strong: #3f72ff;
+    --error: #ff6b6b;
+    --ring: #a4b8ff;
+    --success: #20c997;
+    --radius: 14px;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* Page Hintergrund mit sanftem Verlauf */
+body{
+    background: radial-gradient(1200px 700px at 10 percent 0 percent, #1b2140 0 percent, var(--bg) 60 percent);
+    color: var(--text);
+    font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.page{
+    max-width: 980px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Ueberschriften */
+h1, h2{
+    letter-spacing: 0.2px;
+    margin: 0 0 18px;
+}
+h1{
+    font-size: 32px;
+}
+h2{
+    font-size: 22px;
+    color: var(--muted);
+}
+
+/* Karten Layout */
+.card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 22px;
+    backdrop-filter: blur(8px);
+}
+
+/* Formular Raster */
+.formGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 20px;
+}
+@media (max-width: 760px){
+    .formGrid{ grid-template-columns: 1fr; }
+}
+
+/* Form Felder */
+.field{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.label{
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.input, .select, .textarea{
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.input::placeholder,
+.textarea::placeholder{
+    color: #9aa1ba;
+}
+
+.input:focus, .select:focus, .textarea:focus{
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(91, 140, 255, 0.25);
+    background: rgba(255,255,255,0.05);
+}
+
+.textarea{
+    min-height: 140px;
+    resize: vertical;
+}
+
+/* Aktionen */
+.actions{
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+.btn{
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    transition: transform 80ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.btnPrimary{
+    background: linear-gradient(180deg, var(--primary) 0 percent, var(--primary-strong) 100 percent);
+    color: white;
+    box-shadow: 0 8px 18px rgba(63, 114, 255, 0.35);
+}
+.btnPrimary:hover{ transform: translateY(-1px); }
+.btnPrimary:active{ transform: translateY(0); }
+
+/* Meldungen */
+.error{
+    margin-top: 6px;
+    color: var(--error);
+    font-size: 14px;
+}
+
+/* Tabelle fuer Secrets */
+.tableWrap{
+    margin-top: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.table{
+    width: 100 percent;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.table thead th{
+    text-align: left;
+    padding: 14px;
+    background: rgba(255,255,255,0.05);
+    color: var(--muted);
+}
+.table tbody td{
+    padding: 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    vertical-align: top;
+}
+.table tbody tr:nth-child(even){
+    background: rgba(255,255,255,0.03);
+}
+
+pre{
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Kleines Badge fuer Status oder Typ */
+.badge{
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(32, 201, 151, 0.16);
+    color: var(--success);
+    border: 1px solid rgba(32, 201, 151, 0.35);
+}
+
+/* Kleinere Helfer */
+.mt16{ margin-top: 16px; }
+.mt24{ margin-top: 24px; }
+.wFull{ width: 100 percent; }
+
+/* ------------------------------------------- */
+/* Modernes Secrets Dashboard Styling          */
+/* ------------------------------------------- */
+
+.secretsContainer {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.secretCard {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.secretCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+}
+
+.secretHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.secretHeader h3 {
+    margin: 0;
+    font-size: 17px;
+    color: var(--primary);
+}
+
+.secretMeta {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.secretContent {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--text);
+}
+
+.noSecrets {
+    text-align: center;
+    color: var(--muted);
+    margin-top: 30px;
+    font-size: 15px;
+}
