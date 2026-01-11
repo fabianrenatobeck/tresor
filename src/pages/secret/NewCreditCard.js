@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {postSecret} from "../../comunication/FetchSecrets";
+import '../../css/format.css';
+
 
 /**
  * NewCreditCard
@@ -35,66 +37,68 @@ function NewCreditCard({loginValues}) {
     };
 
     return (
-        <div>
-            <h2>Add new credit-card secret</h2>
-            <form onSubmit={handleSubmit}>
-                <section>
-                    <aside>
-                        <div>
-                            <label>card type:</label>
-                            <select
-                                value={creditCardValues.cardtype}
-                                onChange={(e) =>
-                                    setCreditCardValues((prevValues) => ({
-                                        ...prevValues,
-                                        cardtype: e.target.value,
-                                    }))}
-                                required
-                            >
-                                <option value="" disabled>
-                                    Please select card type
-                                </option>
-                                <option value="Visa">Visa</option>
-                                <option value="Mastercard">Mastercard</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>cardnumber:</label>
-                            <input
-                                type="text"
-                                value={creditCardValues.cardnumber}
-                                onChange={(e) =>
-                                    setCreditCardValues(prevValues => ({...prevValues, cardnumber: e.target.value}))}
-                                required
-                                placeholder="Please enter cardnumber"
-                            />
-                        </div>
-                        <div>
-                            <label>expiration (mm/yy):</label>
-                            <input
-                                type="text"
-                                value={creditCardValues.expiration}
-                                onChange={(e) =>
-                                    setCreditCardValues(prevValues => ({...prevValues, expiration: e.target.value}))}
-                                required
-                                placeholder="Please enter expiration"
-                            />
-                        </div>
-                        <div>
-                            <label>cvv:</label>
-                            <input
-                                type="text"
-                                value={creditCardValues.cvv}
-                                onChange={(e) =>
-                                    setCreditCardValues(prevValues => ({...prevValues, cvv: e.target.value}))}
-                                required
-                                placeholder="Please enter cvv"
-                            />
-                        </div>
-                        <button type="submit">Save secret</button>
-                        {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
-                    </aside>
+        <div className="page">
+            <h2>Neue Karten Geheimnis</h2>
+            <form onSubmit={handleSubmit} className="card">
+                <section className="formGrid">
+                    <div className="field">
+                        <label className="label">Kartentyp</label>
+                        <select
+                            className="select"
+                            value={creditCardValues.cardtype}
+                            onChange={(e) => setCreditCardValues(v => ({...v, cardtype: e.target.value}))}
+                            required
+                        >
+                            <option value="" disabled>Waehle den Typ</option>
+                            <option value="Visa">Visa</option>
+                            <option value="Mastercard">Mastercard</option>
+                        </select>
+                    </div>
+
+                    <div className="field">
+                        <label className="label">Kartennummer</label>
+                        <input
+                            className="input"
+                            type="text"
+                            inputMode="numeric"
+                            value={creditCardValues.cardnumber}
+                            onChange={(e) => setCreditCardValues(v => ({...v, cardnumber: e.target.value}))}
+                            required
+                            placeholder="Ziffern eingeben"
+                        />
+                    </div>
+
+                    <div className="field">
+                        <label className="label">Gueltig bis mm jj</label>
+                        <input
+                            className="input"
+                            type="text"
+                            value={creditCardValues.expiration}
+                            onChange={(e) => setCreditCardValues(v => ({...v, expiration: e.target.value}))}
+                            required
+                            placeholder="z. B. 04 28"
+                        />
+                    </div>
+
+                    <div className="field">
+                        <label className="label">Pruefziffer</label>
+                        <input
+                            className="input"
+                            type="text"
+                            inputMode="numeric"
+                            value={creditCardValues.cvv}
+                            onChange={(e) => setCreditCardValues(v => ({...v, cvv: e.target.value}))}
+                            required
+                            placeholder="CVV"
+                        />
+                    </div>
                 </section>
+
+                <div className="actions mt16">
+                    <span className="badge" title="Wird verschluesselt">Sicher gespeichert</span>
+                    <button type="submit" className="btn btnPrimary">Speichern</button>
+                    {errorMessage && <p className="error">{errorMessage}</p>}
+                </div>
             </form>
         </div>
     );

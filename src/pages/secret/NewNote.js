@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {postSecret} from "../../comunication/FetchSecrets";
+import { postSecret } from "../../comunication/FetchSecrets";
+import '../../css/format.css';
 
 /**
  * NewNote
  * @author Peter Rutschmann
  */
-function NewNote({loginValues}) {
+function NewNote({ loginValues }) {
     const initialState = {
         kindid: 3,
-        kind:"note",
+        kind: "note",
         title: "",
         content: "",
     };
@@ -22,8 +23,16 @@ function NewNote({loginValues}) {
         e.preventDefault();
         setErrorMessage('');
         try {
-            const content = noteValues;
-            await postSecret({loginValues, content});
+            // WICHTIG: Wir müssen das Objekt in einen String umwandeln,
+            // damit Titel UND Inhalt verschlüsselt gespeichert werden.
+            const contentAsString = JSON.stringify(noteValues);
+
+            // ÄNDERUNG: Wir übergeben content UND das password separat!
+            await postSecret({
+                content: contentAsString,
+                password: loginValues.password // <--- Hier kommt der Schlüssel her!
+            });
+
             setNoteValues(initialState);
             navigate('/secret/secrets');
         } catch (error) {
@@ -33,44 +42,38 @@ function NewNote({loginValues}) {
     };
 
     return (
-        <div>
-            <h2>Add new note secret</h2>
-            <form onSubmit={handleSubmit}>
-                <section>
-                    <aside>
-                        <div>
-                            <label>title:</label>
-                            <input
-                                type="text"
-                                value={noteValues.title}
-                                onChange={(e) =>
-                                    setNoteValues(prevValues => ({...prevValues, title: e.target.value}))}
-                                required
-                                placeholder="Please enter a title *"
-                            />
-                        </div>
-                        <div>
-                            <label>content:</label>
-                            <textarea
-                                rows={4}
-                                style={{
-                                    resize: 'both', // Ermöglicht Größenänderung in beide Richtungen
-                                    width: '24%', // Standardbreite (kann angepasst werden)
-                                    minWidth: '190px', // Minimale Breite
-                                    minHeight: '100px', // Minimale Höhe
-                                }}
-                                value={noteValues.content}
-                                onChange={(e) =>
-                                    setNoteValues(prevValues =>
-                                        ({...prevValues, content: e.target.value}))}
-                                required
-                                placeholder="Please enter a content *"
-                            />
-                        </div>
-                        <button type="submit">Save secret</button>
-                        {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
-                    </aside>
+        <div className="page">
+            <h2>Neue Notiz</h2>
+            <form onSubmit={handleSubmit} className="card">
+                <section className="formGrid">
+                    <div className="field">
+                        <label className="label">Titel</label>
+                        <input
+                            className="input"
+                            type="text"
+                            value={noteValues.title}
+                            onChange={(e) => setNoteValues(v => ({...v, title: e.target.value}))}
+                            required
+                            placeholder="Titel eingeben"
+                        />
+                    </div>
+
+                    <div className="field wFull">
+                        <label className="label">Inhalt</label>
+                        <textarea
+                            className="textarea"
+                            value={noteValues.content}
+                            onChange={(e) => setNoteValues(v => ({...v, content: e.target.value}))}
+                            required
+                            placeholder="Schreibe deine Notiz"
+                        />
+                    </div>
                 </section>
+
+                <div className="actions mt16">
+                    <button type="submit" className="btn btnPrimary">Speichern</button>
+                    {errorMessage && <p className="error">{errorMessage}</p>}
+                </div>
             </form>
         </div>
     );

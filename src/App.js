@@ -12,6 +12,9 @@ import Secrets from "./pages/secret/Secrets";
 import NewCredential from "./pages/secret/NewCredential";
 import NewCreditCard from "./pages/secret/NewCreditCard";
 import NewNote from "./pages/secret/NewNote";
+// Neue Importe hinzugefügt (Pfade ggf. anpassen):
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 /**
  * App
@@ -22,11 +25,13 @@ function App() {
         email: "",
         password: "",
     });
+
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout loginValues={loginValues}/>}>
-                    <Route index element={<Home/>}/>}/>
+                    {/* Korrektur: überflüssiges }/> entfernt */}
+                    <Route index element={<Home/>}/>
                     <Route path="/user/users" element={<Users loginValues={loginValues}/>}/>
                     <Route path="/user/login" element={<LoginUser loginValues={loginValues} setLoginValues={setLoginValues}/>}/>
                     <Route path="/user/register" element={<RegisterUser loginValues={loginValues} setLoginValues={setLoginValues}/>}/>
@@ -34,6 +39,10 @@ function App() {
                     <Route path="/secret/newcredential" element={<NewCredential loginValues={loginValues}/>}/>
                     <Route path="/secret/newcreditcard" element={<NewCreditCard loginValues={loginValues}/>}/>
                     <Route path="/secret/newnote" element={<NewNote loginValues={loginValues}/>}/>
+                    <Route path="/register" element={<RegisterUser loginValues={loginValues} setLoginValues={setLoginValues}/>} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+
                     <Route path="*" element={<NoPage/>}/>
                 </Route>
             </Routes>

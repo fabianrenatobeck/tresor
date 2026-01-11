@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {postSecret} from "../../comunication/FetchSecrets";
+import '../../css/format.css';
 
 /**
  * NewCredential
@@ -35,48 +36,54 @@ function NewCredential({loginValues}) {
     };
 
     return (
-        <div>
-            <h2>Add new credential secret</h2>
-            <form onSubmit={handleSubmit}>
-                <section>
-                    <aside>
-                        <div>
-                            <label>username:</label>
-                            <input
-                                type="text"
-                                value={credentialValues.userName}
-                                onChange={(e) =>
-                                    setCredentialValues(prevValues => ({...prevValues, userName: e.target.value}))}
-                                required
-                                placeholder="Please enter username"
-                            />
-                        </div>
-                        <div>
-                            <label>password:</label>
-                            <input
-                                type="text"
-                                value={credentialValues.password}
-                                onChange={(e) =>
-                                    setCredentialValues(prevValues => ({...prevValues, password: e.target.value}))}
-                                required
-                                placeholder="Please enter password"
-                            />
-                        </div>
-                        <div>
-                            <label>url:</label>
-                            <input
-                                type="text"
-                                value={credentialValues.url}
-                                onChange={(e) =>
-                                    setCredentialValues(prevValues => ({...prevValues, url: e.target.value}))}
-                                required
-                                placeholder="Please enter url"
-                            />
-                        </div>
-                        <button type="submit">save secret</button>
-                        {errorMessage && <p style={{color: 'red'}}>{errorMessage}</p>}
-                    </aside>
+        <div className="page">
+            <h2>Neues Zugangsdaten Geheimnis</h2>
+            <form onSubmit={handleSubmit} className="card">
+                <section className="formGrid">
+                    <div className="field">
+                        <label className="label">Benutzername</label>
+                        <input
+                            className="input"
+                            type="text"
+                            value={credentialValues.userName}
+                            onChange={(e) =>
+                                setCredentialValues(v => ({...v, userName: e.target.value}))}
+                            required
+                            placeholder="Gib den Benutzernamen ein"
+                        />
+                    </div>
+
+                    <div className="field">
+                        <label className="label">Passwort</label>
+                        <input
+                            className="input"
+                            type="password"
+                            value={credentialValues.password}
+                            onChange={(e) =>
+                                setCredentialValues(v => ({...v, password: e.target.value}))}
+                            required
+                            placeholder="Gib das Passwort ein"
+                        />
+                    </div>
+
+                    <div className="field wFull">
+                        <label className="label">Adresse</label>
+                        <input
+                            className="input"
+                            type="url"
+                            value={credentialValues.url}
+                            onChange={(e) =>
+                                setCredentialValues(v => ({...v, url: e.target.value}))}
+                            required
+                            placeholder="https://beispiel.ch"
+                        />
+                    </div>
                 </section>
+
+                <div className="actions mt16">
+                    <button type="submit" className="btn btnPrimary">Speichern</button>
+                    {errorMessage && <p className="error">{errorMessage}</p>}
+                </div>
             </form>
         </div>
     );
