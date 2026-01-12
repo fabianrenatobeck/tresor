@@ -219,4 +219,27 @@ export const postGoogleLogin = async (firebaseToken) => {
         console.error('Fehler beim Google-Login:', error.message);
         throw error;
     }
+
+};
+/**
+ * Verifiziert den 2FA-PIN beim Backend
+ */
+export const verify2FAPin = async (email, pin) => {
+    const API_URL = getApiUrl();
+    const response = await fetch(`${API_URL}/users/verify-2fa`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, pin })
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.token) {
+        // DAS HIER IST ENTSCHEIDEND:
+        localStorage.setItem("jwtToken", data.token);
+        localStorage.setItem("userRole", data.role);
+        return data;
+    } else {
+        throw new Error(data.message || "PIN falsch");
+    }
 };
